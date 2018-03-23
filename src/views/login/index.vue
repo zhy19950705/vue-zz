@@ -1,21 +1,21 @@
 <template>
     <div class="login-container">
-       <el-form class="login-form">
+       <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
          <div class="title-container">
            <h3 class="title">真真</h3>
          </div>
-         <el-form-item>
+         <el-form-item prop="username">
             <span class="svg-container svg-container-login">
              <svg-icon icon-class="user" />
            </span>
-           <el-input name="username" type="text" auto-complete="on" placeholder="username" />
+           <el-input name="username" type="text" v-model="loginForm.username" auto-complete="on" placeholder="username" />
          </el-form-item>
-         <el-form-item>
+         <el-form-item prop="password">
             <span class="svg-container">
               <svg-icon icon-class="password" />
             </span>
-           <el-input name="password" type="password" auto-complete="on" placeholder="password" />
-           <span class="show-pwd">
+           <el-input name="password" :type="passwordType" v-model="loginForm.password" auto-complete="on" placeholder="password" />
+           <span class="show-pwd" @click="showPwd">
              <svg-icon icon-class="eye" />
            </span>
          </el-form-item>
@@ -42,10 +42,32 @@
             callback()
           }
         }
+        return {
+          loginForm: {
+            username: 'admin',
+            password: '111111'
+          },
+          loginRules: {
+            username: [{ required: true, trigger: 'blur', validator: validateUsername, message: '请输入正确的用户名' }],
+            password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+          },
+          passwordType: 'password'
+        }
       },
       methods: {
+        showPwd() {
+          if (this.passwordType === 'password') {
+            this.passwordType = ''
+          } else {
+            this.passwordType = 'password'
+          }
+        },
         login() {
-          this.$router.push({ path: '/hello' })
+          this.$refs.loginForm.validate(valid => {
+            if (valid) {
+              this.$router.push({ path: '/hello' })
+            }
+          })
         }
       }
     }

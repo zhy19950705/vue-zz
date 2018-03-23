@@ -51,10 +51,14 @@ export default {
     }
   },
   methods: {
-    fetchData() {
-      getList().then(res => {
-        this.list = res.data.items
-      })
+    async fetchData() {
+      try {
+        await getList().then(res => {
+          this.list = res.data.items
+        })
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   created() {
