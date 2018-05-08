@@ -65,7 +65,14 @@
         login() {
           this.$refs.loginForm.validate(valid => {
             if (valid) {
-              this.$router.push({ path: '/hello' })
+              this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+                this.$router.push({ path: '/hello' })
+              }).catch(() => {
+
+              })
+            } else {
+              console.log('error submit')
+              return false
             }
           })
         }

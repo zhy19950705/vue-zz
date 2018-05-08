@@ -7,7 +7,16 @@ Vue.use(Router)
 
 export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
-  { path: '/hello', component: HelloWorld, hidden: true }
+  { path: '/hello', component: HelloWorld, hidden: true },
+  {
+    path: '',
+    component: _import('layout/Layout')
+    // redirect: 'dashboard',
+    // children: [{
+    //   path: 'dashboard',
+    //   name: 'dashboard'
+    // }]
+  }
 ]
 export default new Router({
   // routes: [
@@ -19,3 +28,7 @@ export default new Router({
   // ]
   routes: constantRouterMap
 })
+
+export const asncRouterMap = [
+
+]
