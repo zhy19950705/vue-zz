@@ -4,6 +4,7 @@
            <navbar></navbar>
         </div>
         <div>
+           <slider v-model='userInput' :max='50' :min='-10'/>
           <el-button @click="debugger1"></el-button>
          </div> 
     </div>
@@ -11,11 +12,17 @@
 
 <script>
     import Navbar from './components/Navbar'
-
+    import Slider from '@/components/Slider/slider'
     export default {
       name: 'layout',
+      data(){
+        return{
+          userInput:10
+        }
+      },
       components: {
-        Navbar
+        Navbar,
+        Slider
       },
       methods:{
         debugger1(){
